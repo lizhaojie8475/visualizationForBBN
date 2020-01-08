@@ -3,10 +3,11 @@ from django.utils import timezone
 
 
 class userModel(models.Model):
-    user_name = models.CharField(max_length=32, unique=True, null=False)
+    userName = models.CharField(max_length=32, unique=True, null=False)
     password = models.CharField(max_length=32, null=False, blank=True)
-    create_time = models.DateTimeField(auto_now_add=True)
-    update_time = models.DateTimeField(auto_now=True)
+    authority = models.CharField(max_length=16, default='read')
+    createTime = models.DateTimeField(auto_now_add=True)
+    updateTime = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.user_name
