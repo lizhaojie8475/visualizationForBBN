@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from .forms import loginForm
 from .models import userModel
 from django.contrib.sessions.models import Session
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -16,13 +18,14 @@ def login(request, url):
                 if user.password == login_password:
                     request.session["userName"] = user.userName
                     request.session["authority"] = user.authority
+                    messages.add_message(request, messages.SUCCESS, "欢迎您的登录")
                     return redirect('/')
                 else:
-                    message = "用户名或密码错误"
+                    messages.add_message(request, messages.WARNING, "用户名或密码错误")
             except:
-                message = "用户名或密码错误"
+                messages.add_message(request, messages.WARNING, "用户名或密码错误")
         else:
-            message = "请检查输入的字段格式是否正确"
+            messages.add_message(request, messages.WARNING, "请检查输入的字段格式是否正确")
     else:
         login_form = loginForm()
     url = url
@@ -40,6 +43,8 @@ def index(request, url):
     if 'userName' in request.session:
         userName = request.session["userName"]
         authority = request.session["authority"]
+    else:
+        return redirect('/login/')
     url = url
     return render(request, 'index.html', locals())
 
