@@ -20,10 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '$e_2a3y5b&t^u=g+^nst)dbl1-(fse4@zx%fl$4&c8u5urd&c@'
+with open('/etc/secret_key.txt) as f:
+        SECRET_KEY = f.read().strip()
+#SECRET_KEY = '$e_2a3y5b&t^u=g+^nst)dbl1-(fse4@zx%fl$4&c8u5urd&c@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*',]
 
@@ -81,7 +83,7 @@ DATABASES = {
         'NAME': 'Network',
         'USER': 'root',
         'PASSWORD': 'li712139',
-        'HOST': 'localhost',
+        'HOST': '192.168.3.14',
         'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES' "
